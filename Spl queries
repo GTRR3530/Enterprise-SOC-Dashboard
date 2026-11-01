@@ -1,0 +1,45 @@
+1.Total Sysmon Events
+index="sysmon" earliest=-24h
+| stats count AS "Total Sysmon Events"
+
+
+2. Process Creation Events (Sysmon Event ID 1)
+index="sysmon" earliest=-24h
+| rex field=_raw "<EventID>(?<EventCode>\d+)</EventID>"
+| search EventCode=1
+| stats count AS "Process Creations"
+
+
+3. Network Connection Events (Sysmon Event ID 3)
+index="sysmon" earliest=-24h
+| rex field=_raw "<EventID>(?<EventCode>\d+)</EventID>"
+| search EventCode=3
+| stats count AS "Network Connections"
+
+
+4. Sysmon Event Activity Trend
+index="sysmon" earliest=-24h
+| timechart span=1h count AS "Sysmon Events"
+
+
+5. Latest Endpoint Security Activity
+index="sysmon" earliest=-24h
+| rex field=_raw "<EventID>(?<EventCode>\d+)</EventID>"
+| eval EventType=case(
+    EventCode="1","Process Creation",
+    EventCode="3","Network Connection",
+    EventCode="11","File Creation",
+    EventCode="22","DNS Query",
+    true(),"Other Activity"
+)
+| sort -_time
+| head 20
+| table _time host EventCode EventType
+
+
+Additional security detection query
+6. Suspicious PowerShell Activity
+index="sysmon" earliest=-24h
+| regex _raw="(?i)(-encodedcommand|-enc\b|FromBase64String|DownloadString|Invoke-Expression)"
+| table _time host _raw
+| sort -_time

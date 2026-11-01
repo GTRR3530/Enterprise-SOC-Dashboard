@@ -132,17 +132,21 @@ A SOC Command Center dashboard was created to visualize collected endpoint telem
 - Demonstrate centralized security monitoring.
 - Explore threat detection and threat intelligence enrichment.
 
-## Disclaimer
+## Project Screenshots
 
-This project is developed for educational, academic, and cybersecurity research purposes. Test activity and detection patterns are used to demonstrate monitoring capabilities. Detection candidates should be investigated before being classified as security incidents.
+### SOC Command Center Dashboard
 
-Threat intelligence integration and automated response are planned enhancements, not currently claimed as completed features.
+The dashboard provides a centralized view of Windows endpoint security events collected through Sysmon and analyzed using Splunk Enterprise.
 
-## Author
+![SOC Command Center Dashboard](Socscreenshot.png)
 
-**GitHub:** [GTRR3530](https://github.com/GTRR3530)
+### Dashboard Features
 
-**Project:** Enterprise SOC Dashboard Using Splunk
+- Total Sysmon Events
+- Process Creation Monitoring
+- Network Connection Monitoring
+- Sysmon Event Activity Trend
+- Latest Endpoint Security Activity
 
 **Domain:** Cybersecurity | Security Operations Center | SIEM
 
